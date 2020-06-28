@@ -16,6 +16,8 @@ const millenniumFalcon = {
     //     return target;
     //     // console.log(target)
     // }
+
+    // My methods weren't working at 100%. They eventually got too confusing so I decided to make a normal "attack" function and used it for both the player and the enemies.
 }
 
 
@@ -81,6 +83,8 @@ attack = (ship, target) => {
     console.log(target.hull)
 }
 
+// My wonderful attack function
+
 
 // while there are still objects (Aliens) in the array of enemies
 // if the Millennium Falcon hits then subtract its fp from the alien's health
@@ -88,35 +92,37 @@ attack = (ship, target) => {
     // ask the player if they want to attack the next ship or retreat
 // if the Millennium Falcon misses then the alien takes a shot
 let input = prompt ("Aliens ahead! What's the plan captain?", "attack or retreat");
-let n = enemies.length - 1;
+// let n = enemies.length;
 
+let baddies = enemies.length
 if (input.toLowerCase() == "attack") {
-    while (enemies.length > 0){
+    while (baddies > 0){
         if (millenniumFalcon.acc > Math.random()) {
             alert("Firing!"); // adlib
             attack (millenniumFalcon, enemies[0]);
             if (enemies[0].hull <= 0) {
-                n--;
-                alert(`Alien down captain! ${n} left`); // adlib
+                // n--;
+                // alert(`Alien down captain! ${n} left`); // I wanted to do a target countdown here. It worked but kept including 0. 
+                // log "Alien down captain! 0 left. Do you want to fight the next one?"
+                
                 // console.log("target down");
                 enemies.shift();
-                let nextAlien = prompt ("Do you want to keep fighting?", "yes/no")
+                let nextAlien = prompt ("Alien down! Do you want to fight the next one?", "yes/no")
                 if (nextAlien.toLowerCase() == "yes") {
-                    alert("Targeting..."); // adlib
-                    continue;
+                    // alert("Targeting..."); // adlib
+                    // continue;
                 } else if (nextAlien.toLowerCase() != "yes") {
                     alert("Let's get out of here captain!") // adlib
-                    break;
+                    break; // Found break through research (puns totally intended) on google. Alos tried to utilize continue but turns out I don't think I needed it.
                 }
                 // console.log("do you want to keep fighting? yes/no")
             } else (alert (`That's a hit captain. Enemy hull is: ${enemies[0].hull}`))
-        } 
+        }
         else if (enemies[0].acc > Math.random()) {
-            alert ("They're shooting at us!") // adlib
+            alert ("We missed! They're taking shots at us!") // adlib
             attack (enemies[0], millenniumFalcon)
             alert(`We've been hit captain. Hull status: ${millenniumFalcon.hull}`)
             // console.log("We've been hit")
-
             if (millenniumFalcon.hull <= 0) {
                 alert(`The Millennium Falcon has been destroyed.`)
                 break;
@@ -127,6 +133,14 @@ if (input.toLowerCase() == "attack") {
 else if (input.toLowerCase() != "attack") {
     (alert("We'll get them next time captain."))
 }
+
+if (enemies.length == 0) {
+alert ("Well we cleared them out captain! Let's reload and fight some more!")
+}
+// My while loop keeps running even though the array here is empty and I can't figure out why. It only stops after it tries to run the loop again but finds nothing at index 0
+
+// I was also wondering how to do this with pop(). I prefer to use that but I utilized shift because I had issues targeting the last object in the array.
+
 // console.log(enemies)
 
 // | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
