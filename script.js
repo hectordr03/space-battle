@@ -11,23 +11,13 @@ const millenniumFalcon = {
     fp: 5,
     acc: 0.7,
 
-    attack () {
-        target -= this.fp
-        // console.log (target)
-        // if (target <= 0) {
-        //     console.log("target killed");
-        //     // enemies.pop();
-        // } else (console.log(`HIT! ${target}`))
-        console.log(typeof(target))
-    }
-}
-let badGuy = {
-    hull: 10,
+    // attack: function (target) {
+    //     target -= this.fp;
+    //     return target;
+    //     // console.log(target)
+    // }
 }
 
-console.log(millenniumFalcon.attack(badGuy.hull))
-
-millenniumFalcon
 
 // | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
 
@@ -44,10 +34,11 @@ class Alien {
         this.acc = Math.random()
     }
 
-    attack (target) {
-        target -= this.fp;
-        console.log(target);
-    }
+    // attack (target) {
+    //     target -= this.fp;
+    //     return target;
+    //     // console.log(target);
+    // }
 }
 
 // a for loop used to populate the "enemies" array
@@ -77,25 +68,35 @@ for (i = 0; i < 6; i++) {
     // console.log(enemies[i])
 }
 
+// for (enemy of enemies) {
+//     console.log(enemy)
+// }
+
+// millenniumFalcon.attack(enemies[0].hull)
+
 // | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
 
-// do {
-
-//     if (millenniumFalcon.acc > Math.random()) { // check if millenniumFalcon hits aliens
-//         // let damage = enemies[current].hull;
-
-
+attack = (ship, target) => {
+    target.hull -= ship.fp
+    console.log(target.hull)
+}
 
 
-//         // if (target <= 0) {
-//         //     enemies.pop();
-//         //     console.log("target killed")
-//         // } else (console.log(target))
-//     }
-
-    
-// } while(enemies.length > 0)
-
+while (enemies.length > 0){
+    if (millenniumFalcon.acc > Math.random()) {
+        attack (millenniumFalcon, enemies[0])
+        if (enemies[0].hull <= 0) {
+            console.log("target down");
+            enemies.shift();
+            console.log("do you want to keep fighting? yes/no")
+        }
+    }
+    else if (enemies[0].acc > Math.random()) {
+        attack (enemies[0], millenniumFalcon)
+        console.log("We've been hit")
+    }
+}
+console.log(enemies)
 
 // | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
 
