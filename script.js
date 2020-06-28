@@ -82,21 +82,52 @@ attack = (ship, target) => {
 }
 
 
-while (enemies.length > 0){
-    if (millenniumFalcon.acc > Math.random()) {
-        attack (millenniumFalcon, enemies[0])
-        if (enemies[0].hull <= 0) {
-            console.log("target down");
-            enemies.shift();
-            console.log("do you want to keep fighting? yes/no")
+// while there are still objects (Aliens) in the array of enemies
+// if the Millennium Falcon hits then subtract its fp from the alien's health
+    // if the alien's health hits 0 or below it will destroy the alien (remove it from the array)
+    // ask the player if they want to attack the next ship or retreat
+// if the Millennium Falcon misses then the alien takes a shot
+let input = prompt ("Aliens ahead! What's the plan captain?", "attack or retreat");
+let n = enemies.length - 1;
+
+if (input.toLowerCase() == "attack") {
+    while (enemies.length > 0){
+        if (millenniumFalcon.acc > Math.random()) {
+            alert("Firing!"); // adlib
+            attack (millenniumFalcon, enemies[0]);
+            if (enemies[0].hull <= 0) {
+                n--;
+                alert(`Alien down captain! ${n} left`); // adlib
+                // console.log("target down");
+                enemies.shift();
+                let nextAlien = prompt ("Do you want to keep fighting?", "yes/no")
+                if (nextAlien.toLowerCase() == "yes") {
+                    alert("Targeting..."); // adlib
+                    continue;
+                } else if (nextAlien.toLowerCase() != "yes") {
+                    alert("Let's get out of here captain!") // adlib
+                    break;
+                }
+                // console.log("do you want to keep fighting? yes/no")
+            } else (alert (`That's a hit captain. Enemy hull is: ${enemies[0].hull}`))
+        } 
+        else if (enemies[0].acc > Math.random()) {
+            alert ("They're shooting at us!") // adlib
+            attack (enemies[0], millenniumFalcon)
+            alert(`We've been hit captain. Hull status: ${millenniumFalcon.hull}`)
+            // console.log("We've been hit")
+
+            if (millenniumFalcon.hull <= 0) {
+                alert(`The Millennium Falcon has been destroyed.`)
+                break;
+            }
         }
     }
-    else if (enemies[0].acc > Math.random()) {
-        attack (enemies[0], millenniumFalcon)
-        console.log("We've been hit")
-    }
+} 
+else if (input.toLowerCase() != "attack") {
+    (alert("We'll get them next time captain."))
 }
-console.log(enemies)
+// console.log(enemies)
 
 // | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
 
